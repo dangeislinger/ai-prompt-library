@@ -12,3 +12,8 @@ Source Identification
 
 Image Find
 * Song Image Finder: Identifies potential images for a song article.
+
+---
+<p align="center">
+  <sub>© 2026 Dan Geislinger. All rights reserved.</sub>
+</p>
