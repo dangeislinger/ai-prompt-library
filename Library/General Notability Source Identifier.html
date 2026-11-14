@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>General Notability Source Identifier</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <h2>General Notability Source Identifier</h2>
+
+  <form id="promptForm">
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" required autofocus>
+    </div>
+
+    <button type="submit">Generate Prompt</button>
+  </form>
+
+  <div class="output-group">
+    <label for="outputTextarea">Generated Prompt:</label>
+    <textarea id="outputTextarea" placeholder="Your prompt will appear here after submission..."></textarea>
+  </div>
+
+  <div class="output-group">
+	[ <a href="../AI Prompts - Library Index.html">◀ BACK</a> ]
+  <div>
+
+  <script>
+    document.getElementById('promptForm').addEventListener('submit', function(event) {
+      // Prevent the default browser page refresh on form submission
+      event.preventDefault();
+
+      // Retrieve user inputs
+      const subjectQ = document.getElementById('subject').value.trim();
+
+      // Construct the formatted output prompt
+      const promptText = `Act as an expert Wikipedia editor and archival researcher. I need to evaluate and, if appropriate, establish the Wikipedia notability for the following subject: ${subjectQ}.
+
+If possible, find 3-10 sources that establish notability for the purpose of creating a Wikipedia article about it.
+
+Do not fabricate, infer, assume, or guess the existence of any source.
+
+Please search for and compile a list of high-quality sources that meet Wikipedia's General Notability Guideline (WP:GNG). Every source provided must meet the following three strict criteria:
+1. Independent: Completely unassociated with the subject (no press releases, self-published material, sponsored content, company websites, interviews, or affiliated promotions).
+2. Reliable: Published by reputable media outlets, academic journals, established publishing houses, or recognized industry publications with editorial oversight and fact-checking. Do not use user-generated content or databases without editorial oversight (Discogs, RateYourMusic, MusicBrainz, IMDb user reviews, blogs, personal websites, wikis of any kind, social media, press releases, or self-published material).
+3. Significant Coverage: The source addresses the subject in depth (not a passing mention, routine list, directory entry, or brief quote).
+
+Do not fabricate, infer, assume, or guess the existence of any source.
+
+For each source you find, provide:
+- Full Citation: Title, Author/Writer, Publisher/Publication Name, Date published, and URL (if accessible). Verify each link resolves before outputting it.
+- Type of Source: (e.g., Major News Outlet, Peer-reviewed Academic Journal, Published Book, Trade Magazine).
+- Summary of Coverage: A brief 2–3 sentence breakdown of how deeply and specifically this source discusses the subject.
+- Notability Assessment: Why this specific source helps fulfill Wikipedia's GNG.
+
+Do not fabricate, infer, assume, or guess the existence of any source.
+
+Give your assessment of whether there is enough to establish notability for a Wikipedia article. If the minimum requirement of 3 sources cannot be met, state that. If fewer than the requested number of qualifying sources exist, state the exact number that exist.
+
+If suitable independent sources are scarce, please highlight what types of archives or databases (e.g., JSTOR, LexisNexis, specialized trade archives) I should search next.
+
+Do not fabricate, infer, assume, or guess the existence of any source.
+
+If the task cannot be completed exactly as written, stop and explain why instead of attempting to satisfy the request with dubious information.`;
+
+      // Populate the textarea
+      document.getElementById('outputTextarea').value = promptText;
+
+	// Copy to clipboard
+		navigator.clipboard.writeText(promptText).then(() => {
+		  console.log('Prompt copied to clipboard!');
+		  // Optional: Add a visual cue here (e.g., alert or temporary text change)
+		}).catch(err => {
+		  console.error('Failed to copy: ', err);
+		});
+    });
+  </script>
+
+</body>
+</html>

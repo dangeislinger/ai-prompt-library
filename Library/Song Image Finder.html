@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Song Article Image Finder</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <h2>Song Article Image Finder</h2>
+
+  <form id="promptForm">
+    <div class="form-group">
+      <label for="songArticleURL">Song Article URL</label>
+      <input type="text" id="songArticleURL" placeholder="e.g. https://en.wikipedia.org/wiki/Ballad_of_a_Thin_Man" required autofocus>
+    </div>
+
+    <button type="submit">Generate Prompt</button>
+  </form>
+
+  <div class="output-group">
+    <label for="outputTextarea">Generated Prompt:</label>
+    <textarea id="outputTextarea" placeholder="Your prompt will appear here after submission..."></textarea>
+  </div>
+
+  <div class="output-group">
+	[ <a href="../AI Prompts - Library Index.html">◀ BACK</a> ]
+  <div>
+
+  <script>
+    document.getElementById('promptForm').addEventListener('submit', function(event) {
+      // Prevent the default browser page refresh on form submission
+      event.preventDefault();
+
+      // Retrieve user inputs
+      const songArticleURL = document.getElementById('songArticleURL').value.trim();
+
+      // Construct the formatted output prompt
+      const promptText = `I want to add a representative image to this Wikipedia article: ${songArticleURL}. Find, retrieve, and display 5 potential images to use.
+
+Official single cover images or record label stickers are ideal.
+Never suggest the cover of the album a song is on.
+Make sure potential images meet Wikipedia rules about image usages, especially non-free image usage rules (at WP:NFC).
+Wikimedia Commons images are a great option, but only if applicable.
+
+Display each image itself (the actual rendered image, not just a URL), linked to the source.
+After each displayed image, give a brief explanation of why the image is a good fit.
+
+Important: Call the the necessary image tool on every candidate image URL before writing the final response so the images can be shown inline.
+
+Include only candidates whose images and source pages you have inspected. Before giving the output, check that the response includes five actual image previews. Do not fill the five slots with unverified search results. If fewer than five qualify, show the verified candidates and explain the shortfall.`;
+
+      // Populate the textarea
+      document.getElementById('outputTextarea').value = promptText;
+
+	// Copy to clipboard
+		navigator.clipboard.writeText(promptText).then(() => {
+		  console.log('Prompt copied to clipboard!');
+		  // Optional: Add a visual cue here (e.g., alert or temporary text change)
+		}).catch(err => {
+		  console.error('Failed to copy: ', err);
+		});
+    });
+  </script>
+
+</body>
+</html>

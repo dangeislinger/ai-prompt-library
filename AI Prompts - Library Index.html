@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Prompt Library</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <h2>AI Prompt Library</h2>
+
+Infobox Gen
+  <ul>
+  <li><a href="Library\Song Infobox Prompt Generator.html">Song Infobox Prompt Generator</a><br></li>
+  </ul>
+Source Identification
+  <ul>
+  <li><a href="Library\Song Notability Source Identifier.html">Song Notability Source Identifier</a><br></li>
+  <li><a href="Library\Album Notability Source Identifier.html">Album Notability Source Identifier</a><br></li>
+  <li><a href="Library\General Notability Source Identifier.html">General Notability Source Identifier</a><br></li>
+  </ul>
+Image Find
+  <ul>
+  <li><a href="Library\Song Image Finder.html">Song Image Finder</a><br></li>
+  </ul>
+
+
+<!-- <li><a href="Library\fake.html">fake</a><br></li> TESTING LINK COLORS -->
+  </ul>
+
+<!-- START REDIRECT TEMPLATE BUTTON -->
+    <button id="copyButton">Redirect Template  ➡️ 📋</button>
+
+    <script>
+        const textToCopy = `#REDIRECT [[Article goes here#And_a_section_here]]
+
+{{Redirect category shell|
+{{R from song}}
+{{R from album}}
+{{R from member}}
+{{R from band name}}
+
+{{R to section}}
+{{R from subtopic}}
+
+{{R to related topic}}
+{{R from alternative name}}
+{{R from punctuation}}
+{{R from company name}}
+{{R from acronym}}
+
+{{R with history}}
+{{R with Wikidata item}}
+{{R from merge}}
+}}`;
+
+        document.getElementById('copyButton').addEventListener('click', function() {
+            navigator.clipboard.writeText(textToCopy).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+    </script>
+<!-- END REDIRECT TEMPLATE BUTTON -->
+<br>
+<br>
+<!-- START SONG INFOBOX TEMPLATE BUTTON -->
+    <button id="copyButton2">Song Infobox Template ➡️ 📋</button>
+
+    <script>
+        const textToCopy2 = `{{Infobox song
+| name          = 
+| cover         = 
+| image         = 
+| caption       = 
+| type          = single
+| artist        = 
+| album         = 
+| B-side        = 
+| A-side        = 
+| written       = 
+| published     = 
+| recorded      = 
+| released      = {{Start date|YYYY|MM|DD}}
+| genre         = 
+| length        = {{Duration|m=MM|s=SS}}
+| label         = 
+| writer        = IFbothMUSICandLYRICS
+| composer      = 
+| lyricist      = 
+| producer      =
+}}`;
+
+        document.getElementById('copyButton2').addEventListener('click', function() {
+            navigator.clipboard.writeText(textToCopy2).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+    </script>
+<!-- END SONG INFOBOX TEMPLATE BUTTON -->
+<br>
+<br>
+<!-- START SONG TALK PAGE BUTTON -->
+    <button id="copyButton3">Song Talk Page ➡️ 📋</button>
+
+    <script>
+        const textToCopy3 = `{{WikiProject banner shell|
+{{WikiProject Songs}}
+}}`;
+
+        document.getElementById('copyButton3').addEventListener('click', function() {
+            navigator.clipboard.writeText(textToCopy3).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+    </script>
+<!-- END SONG TALK PAGE BUTTON -->
+<br>
+<br>
+<!-- START ALBUM TALK PAGE BUTTON -->
+    <button id="copyButton4">Album Talk Page ➡️ 📋</button>
+
+    <script>
+        const textToCopy4 = `{{WikiProject banner shell|
+{{WikiProject Albums}}
+}}`;
+
+        document.getElementById('copyButton4').addEventListener('click', function() {
+            navigator.clipboard.writeText(textToCopy4).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+    </script>
+<!-- END ALBUM INFOBOX TEMPLATE BUTTON -->
+
+<!---  
+  <form id="promptForm">
+    <div class="form-group">
+      <label for="albumTitle">Album Title</label>
+      <input type="text" id="albumTitle" placeholder="e.g. OK Computer" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bandName">Band / Artist Name</label>
+      <input type="text" id="bandName" placeholder="e.g. Radiohead" required>
+    </div>
+
+    <div class="form-group">
+      <label for="year">Release Year</label>
+      <input type="number" id="year" placeholder="e.g. 1997" min="1800" max="2099" required>
+    </div>
+
+    <button type="submit">Generate Prompt</button>
+  </form>
+
+  <div class="output-group">
+    <label for="outputTextarea">Generated Prompt:</label>
+    <textarea id="outputTextarea" placeholder="Your prompt will appear here after submission..."></textarea>
+  </div>
+-->
+
+</body>
+</html>
