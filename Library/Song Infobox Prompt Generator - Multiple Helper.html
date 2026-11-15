@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helper for Multiple Song Infobox Prompt Generator</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <h2>Helper for Multiple Song Infobox Prompt Generator</h2>
+
+  <form id="promptForm">
+    <div class="form-group">
+      <label for="pageTitles">Talk Page Titles</label>
+      <textarea id="pageTitles" rows="15" placeholder="Talk:The Rare Old ..." required autofocus></textarea>
+    </div>
+
+    <button type="submit">Generate Prompt</button>
+    <button type="reset" style="background-color: #8b0000; border-color: #8b0000; color: #ffffff;">Clear</button>
+  </form>
+
+  <div class="output-group">
+    <label for="outputTextarea">Generated Text Output:</label>
+    <textarea id="outputTextarea" placeholder="Your output will appear here after submission..."></textarea>
+  </div>
+
+  <div class="output-group">
+	<table style="width:100%; border-collapse:collapse; border:none;">
+	  <tr>
+		<td style="padding:0; text-align:left;">[ <a href="../AI Prompt Library.html">◀ BACK</a> ]</td>
+		<td style="padding:0; text-align:right;">[ <a href="Song Infobox Prompt Generator - Multiple.html">MULTI-GEN ▶</a> ]</td>
+	  </tr>
+	</table>
+  </div>
+
+  <script>
+    document.getElementById('promptForm').addEventListener('submit', function(event) {
+      // Prevent the default browser page refresh on form submission
+      event.preventDefault();
+
+      // Retrieve user inputs
+      const pageTitles = document.getElementById('pageTitles').value.trim();
+
+      // Construct the formatted output prompt
+      const promptText = `For the below list of Wikipedia talk pages, generate a list of full URLs to each main article. For example, "Talk:Satchan" would become "https://en.wikipedia.org/wiki/Satchan". Number the items, e.g. "1. https://en.wikipedia.org/wiki/Satchan". Output the result in a plain text code block so that auto-linking doesn't truncate trailing parentheses and the numbers appear as plain text, not rendered as an ordered list.
+
+${pageTitles}`;
+
+      // Populate the textarea
+      document.getElementById('outputTextarea').value = promptText;
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(promptText).then(() => {
+        console.log('Text copied to clipboard!');
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    });
+  </script>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr>
+<p align="center">
+  <sub>© 2026 Dan Geislinger. All rights reserved.</sub>
+</p>
+
+</body>
+</html>

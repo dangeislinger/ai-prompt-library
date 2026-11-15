@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Song Infobox Prompt Generator</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <h2>Multiple Song Infobox Prompt Generator</h2>
+
+  <form id="promptForm">
+    <div class="form-group">
+      <label for="wikiURLs">Song Titles</label>
+      <textarea id="wikiURLs" rows="15" placeholder="1. https://en.wikipedia.org/wiki/The_Rare_Old..." required autofocus></textarea>
+    </div>
+
+    <button type="submit">Generate Prompt</button>
+    <button type="reset" style="background-color: #8b0000; border-color: #8b0000; color: #ffffff;">Clear</button>
+  </form>
+
+  <div class="output-group">
+    <label for="outputTextarea">Generated Text Output:</label>
+    <textarea id="outputTextarea" placeholder="Your output will appear here after submission..."></textarea>
+  </div>
+
+  <div class="output-group">
+	[ <a href="../AI Prompt Library.html">◀ BACK</a> ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href="Song Infobox Prompt Generator - Multiple Helper.html">◀ HELPER</a> ]
+  </div>
+
+  <script>
+    document.getElementById('promptForm').addEventListener('submit', function(event) {
+      // Prevent the default browser page refresh on form submission
+      event.preventDefault();
+
+      // Retrieve user inputs
+      const wikiURLs = document.getElementById('wikiURLs').value.trim();
+
+      // Construct the formatted output prompt
+      const promptText = `You are a Wikipedia research analyst. Generate a Song Infobox for each of these song articles:
+${wikiURLs}
+
+--------------------------------------------------------------------
+FOUNDATIONAL INSTRUCTIONS
+--------------------------------------------------------------------
+
+* Generate a fully valid, verifiable, Wikipedia-compliant {{Infobox song}} using ONLY parameters supported by the official template.
+* Populate ONLY fields for which verifiable information exists. Retain every template field. Leave unverified values blank. Do NOT include any invalid parameters or any "[citation needed]" tags.
+* Do not fabricate, infer, assume, or guess the existence of any source.
+* If the task cannot be completed exactly as written, stop and explain why instead of attempting to satisfy the request.
+* Leave infobox fields blank where you don't have reputable verifiable sources.
+* For all date fields, including released, published, and recorded, use the Start date template, "{{Start date|YYYY|MM|DD}}". Replace "YYYY|MM|DD" with the appropriate 4-digit numeric year, 2-digit numeric month (including leading zero), and 2-digit numeric date (including leading zero).
+* For all date fields, including released, published, and recorded, populate with as much specificity as is verifiable. For example, if only the year and month are known, use "{{Start date|YYYY|MM}}". If only the year is known, use "{{Start date|YYYY}}".
+* Use information about each field from the template documentation to guide your work (https://en.wikipedia.org/wiki/Template:Infobox_song).
+* Discogs, 45cat, MusicBrainz, and Wikipedia/Wikimedia (articles and audio files and image files) are acceptable sources.
+* When using Discogs, 45cat, or MusicBrainz: values shown in the site’s interface (such as release year, track length, label, catalog number, and track titles) are considered verifiable even if they do not appear in a permalinked field, as long as the page itself resolves.
+* You may use any reputable, verifiable source. The sources I list (Discogs, 45cat, MusicBrainz, Wikipedia) are examples, not an exclusive list. You must not invent sources, but you may use any real, reputable discographic or historical database if it resolves and provides verifiable information.
+* For historical singles, identify and anchor to the primary release catalog number (e.g., Victor 18940) before extracting track pairings. Cross-check all physical single pairings exclusively using primary label databases, Discogs original master/release listings, or Library of Congress/Discography archives. Do not rely on general association or cross-artist catalog memory for B-sides. If a track pairing cannot be explicitly verified against the primary original release, give me options to choose from and reasons each option may be the right choice.
+* For historical recordings, do not rely solely on summary release years. You must search for and extract exact recording session dates (for the recorded field) and precise commercial release or shipping dates (for the released field) from primary session logs, master discographies, or archival label databases (such as Victor matrix ledgers or Discogs exact release dates) when available.
+
+--------------------------------------------------------------------
+FIELD-SPECIFIC INSTRUCTIONS
+--------------------------------------------------------------------
+
+* Name: Title of the song.
+* Cover: Leave blank.
+* Alt: Leave blank.
+* Caption: Leave blank.
+* Type: If the song was released as a single, use "single", otherwise use "song".
+* Artist: For historical works with an unknown songwriter, such as traditional folk songs, leave blank. If the songwriter is known, use the first artist to release the song as a single or on an album. If the songwriter or artist is unknown, leave it blank. For times when the artist is credited with their orchestra (e.g. "Duke Ellington and His Orchestra"), wikilink only the band leader's name, but include the full credite (e.g. "[[Duke Ellington]] and His Orchestra").
+* Album: Use the name of the album it was first released on. However, if first album it was released on was a greatest hits or other compilation album, leave album blank.
+* Language: Only populate if not English.
+* English_title: Only add if normal song title language is not in English. Use the English translation, if found in valid sources. Do not simply translate the title.
+* B-side: For songs released as singles, if the song was the A-side of a single, add the song title of the B-side. If the song was not released as a single, leave blank. If multiple releases exist and the first release cannot be determined, default to the earliest release in the artist's country of origin. Do not put the B-side values in double quotes since the template already accounts for this.
+* A-side: For songs released as singles, If the song was the B-side of a single, add the song title of the A-side. If the song was not released as a single, leave blank. If multiple releases exist and the first release cannot be determined, default to the earliest release in the artist's country of origin. Do not put the A-Side values in double quotes since the template already accounts for this.
+* Written: This field represents the date the song was actually written/composed, not the date it was published, copyrighted, recorded, or released. Never assume these dates are the same. If no reliable source explicitly identifies the writing/composition date, leave the field blank.
+* Published: For historical songs where the composition predates the recording, populate the “published” field with the original sheet music publication date of the composition, even when the Infobox describes a specific later recording. The “published” field always refers to the composition’s publication, not the recording’s release.
+* Released: If the song was released as a single, add the date (or year or year & month). If the song was not released as a single, but was only released on an album, use the album's release date. If the song wasn't released (as is the case for old historical folk tunes), leave blank. Do not leave the blank Start date template in the output if no value is found.
+* Venue: Only use for live song recordings.
+* Genre: the song's most relevant genre, wikilinked. Use "Traditional pop" instead of "Pop" for pop music released before 1955 or by artists popular before 1955 (e.g. Frank Sinatra).
+* Length: If you can find it from a reliable source, use the Duration template, "{{Duration|m=MM|s=SS}}". Replace "MM" with 2-digit minutes (including leading zero) and "SS" with 2-digit seconds (including leading zero). If a reputable source displays a track duration for the specific recording represented by the infobox, populate the length field. Do not omit the field merely because the duration is absent from other sources. Do not leave the blank Duration template in the output if no value is found.
+* Label: Add a wikilink to the wikipedia aritcle of the record label that released the song. If it makes sense, use a shortened version of the record label name for the wikilink text (for example: "[[Capitol Records|Capitol]]" instead of "[[Capitol Records]]". If the record label doesn't have a wikipedia article, just add the record label's name with no wikilink.
+* Writer: If there was a single songwriter for songs with lyrics or there were multiple songwriters with no clear distinction between who wrote the lyrics and who composed the music, then add a wikilink to the wikipedia article of each songwriter. If any of the songwriters don't have a wikipedia article, just use their name with no wikilink. If there are multiple songwriters with a clear distinction between who wrote the lyrics and who composed the music, then leave writer blank. Never populate the writer if there is a lyricist and composer. If a writer is the same as the artist, do not add a wikilink.
+* Composer: If there are multiple songwriters with a clear distinction between who wrote the lyrics and who composed the music, then add a wikilink to the wikipedia article of the composer of the music. For instrumentals, populate the composer field and leave writer and lyricist blank. If any of the composers don't have a wikipedia article, just use their name with no wikilink. Never populate the composer if there is a writer, per previously defined criteria.
+* Lyricist: If there are multiple songwriters with a clear distinction between who wrote the lyrics and who composed the music, then add a wikilink to the wikipedia article of the writer of the lyrics. If any of the lyricists don't have a wikipedia article, just use their name with no wikilink. Never populate the lyricist if there is a writer, per previously defined criteria.
+* Producer: Add a wikilink to the wikipedia article of the producer or producers of the song. If any of the producers don't have a wikipedia article, just use their name with no wikilink. If the producer is not known, leave it blank.
+
+--------------------------------------------------------------------
+OUTPUT INSTRUCTIONS
+--------------------------------------------------------------------
+
+1. Song infoboxes
+* For building the song infobox, use the below template. Keep the equals signs ("=") in the same location visually, so they remain aligned vertically across all lines. Leave the number of spaces between the field name and equals sign the same as the template. Preserve the exact whitespace and padding between the field names and equals signs ("=") from the provided template without running any auto-formatting or whitespace normalization.
+* You must preserve the exact string length, spacing, and padding between each field name and the equals sign from the provided template. Do not run any whitespace normalization or auto-formatting. Treat every line of the template as an immutable string array where the index of the '=' character must match the source template's character index exactly. Double check the spacing before providing the output to ensure it complies.
+* You must treat the infobox template as an immutable ordered list. You may only fill values; you may not remove, reorder, rename, or omit any field. Preserve the exact spacing, padding, and index position of the equals sign for every field.
+Each line is a fixed‑width string; do not normalize whitespace.
+* For blank fields with no value, keep the trailing space after the equals sign (e.g. "= ").
+* Add wikilinks to relevant Wikipedia articles, only if they actually exist. When adding any wikilink, ensure that the target Wikipedia article exists. Do not create red links, redirects to unrelated topics, or inferred article titles. If no standalone Wikipedia article exists, use plain text instead of a wikilink. For every person, artist, label, album, genre, or other entity eligible for a wikilink, explicitly verify whether a standalone English Wikipedia article exists before generating the infobox. If an article exists, use a wikilink. If no standalone article exists, use plain text. Never omit a valid wikilink through lack of verification.
+* When showing the infobox, display it to me in a plain text code box for easy review and copy-pasting.
+* Put all the infoboxes into a single plain text code box.
+
+2. Potential cover image
+* After the plain text code box, add a link to each song's cover art or vinyl's center sticker, if you can find it.
+
+3. Verification
+* Before generating the final response, perform an ACTUAL validation pass against the exact output you are about to provide. Do not merely restate or acknowledge instructions. For each checklist item, verify the generated infobox text itself. Consider an item as validated only if you have confirmed compliance from the actual output. Otherwise, stop and fix the discrepancy. If you have to stop to fix anything, re-run all the validations again. Iterate as needed to get a clean output that complies with each and every instruction. The checklist must be a report of performed checks, not a summary of intended behavior.
+* Before outputting each infobox, perform a byte-level/string-level comparison of every template line against the provided template. Treat trailing whitespace after = as significant and verify that every blank field retains the exact trailing space characters from the template. Do not claim compliance unless the actual generated text has been inspected character-by-character.
+
+--------------------------------------------------------------------
+TEMPLATE
+--------------------------------------------------------------------
+{{Infobox song
+| name          = 
+| version       = 
+| cover         = 
+| alt           = 
+| caption       = 
+| type          = 
+| artist        = 
+| album         = 
+| language      = 
+| English_title = 
+| B-side        = 
+| A-side        = 
+| written       = 
+| published     = 
+| released      = {{Start date|YYYY|MM|DD}}
+| recorded      = 
+| studio        = 
+| venue         = 
+| genre         = 
+| length        = {{Duration|m=MM|s=SS}}
+| label         = 
+| writer        = 
+| composer      = 
+| lyricist      = 
+| producer      = 
+}}`;
+
+      // Populate the textarea
+      document.getElementById('outputTextarea').value = promptText;
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(promptText).then(() => {
+        console.log('Text copied to clipboard!');
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    });
+  </script>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr>
+<p align="center">
+  <sub>© 2026 Dan Geislinger. All rights reserved.</sub>
+</p>
+
+</body>
+</html>
