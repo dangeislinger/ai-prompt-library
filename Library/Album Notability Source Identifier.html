@@ -51,16 +51,23 @@
 
       // Construct the formatted output prompt
       const promptText = `If possible, find 3 sources that establish the notability of the ${year} album "${albumTitle}" by the artist ${bandName} for the purpose of creating a Wikipedia article about the album.
-Each source needs to be independent of the band, reliable, and contain significant coverage.
+
+
+Each source needs to meet these three core Wikipedia criteria for establishing notability:
+1. Independent: Must be independent of the artist, label, and management.
+2. Reliable: Must come from a reliable secondary source with editorial oversight, such as major newspapers, established music magazines/journals, books from reputable publishers, or professional music criticism sites. Unreliable sources includ online databases, user-generated sites, lyrics sites, Discogs, AllMusic bios, Wikipedia, blogs, or chart aggregators.
+3. Significant Coverage: Must contain significant coverage of the song itself. Must be at least one full paragraph (or ~100+ words) of direct discussion, analysis, review, reception, production history, chart context with commentary, or cultural impact focused on this song — not a single sentence or list entry in a career overview or discography.
+
 Do not fabricate, infer, assume, or guess the existence of any source.
 Verify each link resolves before outputting it.
 Do not output any source unless you can confirm it contains significant coverage.
 Do not use user-generated content or databases without editorial oversight (Discogs, RateYourMusic, MusicBrainz, blogs, wikis of any kind, etc.).
 Provide a real working link to each source and an analysis of how it meets the three notability criteria (independent, reliable, and significant coverage).
 Provide a justification for each source explaining how you verified its existence, link resolution, independence, reliability, and significant coverage.
+To show significant coverage, paste the relevant excerpt that shows depth.
 Provide only real, verifiable sources. Explain how you verified the source exists. Explain how you confirmed the link resolves.
 If the requirement cannot be met, state that immediately.
-If fewer than the requested number of qualifying sources exist, state the exact number that exist and stop.
+If fewer than the requested number of qualifying sources exist, state the exact number that exist, briefly describe them, and stop.
 If the task cannot be completed exactly as written, stop and explain why instead of attempting to satisfy the request.`;
 
       // Populate the textarea

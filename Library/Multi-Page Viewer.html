@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talk Page Transclusion Generator</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <h2>Talk Page Transclusion Generator</h2>
+
+  <form id="promptForm">
+    <div class="form-group">
+      <label for="talkPages">Talk Pages</label>
+      <textarea id="talkPages" rows="15" placeholder="Talk:No Depression in Heaven&#10;Talk:No Moon at All&#10;Talk:No Mule's Fool" required autofocus></textarea>
+    </div>
+
+    <button type="submit">Generate Transclusions</button>
+    <button type="reset" style="background-color: #8b0000; border-color: #8b0000; color: #ffffff;">Clear</button>
+  </form>
+
+  <div class="output-group">
+    <label for="outputTextarea">Generated Transclusions:</label>
+    <textarea id="outputTextarea" rows="15" placeholder="Your transclusions will appear here after submission..."></textarea>
+  </div>
+
+  <div class="output-group">
+    [ <a href="../AI Prompt Library.html">◀ BACK</a> ]
+  </div>
+
+  <script>
+    const talkPagesEl = document.getElementById('talkPages');
+    const outputEl = document.getElementById('outputTextarea');
+
+    // Ensure focus on load (in addition to the autofocus attribute)
+    window.addEventListener('load', function() {
+      talkPagesEl.focus();
+    });
+
+    // Clear button: reset() clears the input; also clear the output and refocus
+    document.getElementById('promptForm').addEventListener('reset', function() {
+      outputEl.value = '';
+      setTimeout(function() { talkPagesEl.focus(); }, 0);
+    });
+
+    document.getElementById('promptForm').addEventListener('submit', function(event) {
+      // Prevent the default browser page refresh on form submission
+      event.preventDefault();
+
+      const lines = talkPagesEl.value.split(/\r?\n/);
+      const entries = [];
+      const skipped = [];
+
+      lines.forEach(function(rawLine) {
+        const line = rawLine.trim();
+        if (!line) return; // skip blank lines
+
+        // Only "Talk:" pages are accepted (case-insensitive prefix)
+        const match = line.match(/^Talk:\s*(.+)$/i);
+        if (!match) {
+          skipped.push(line);
+          return;
+        }
+
+        const title = match[1].replace(/_/g, ' ').trim();
+        if (!title) {
+          skipped.push(line);
+          return;
+        }
+
+        entries.push(
+          '= <span style="background-color:#dd3300;">[[' + title + ']]</span> =\n' +
+          '{{:' + title + '}}\n' +
+          '<br><br><br>\n'
+        );
+      });
+
+      let output = entries.join('\n');
+
+      // Flag skipped lines at the end as a wikitext comment so the
+      // main output stays safe to paste into a Wikipedia page
+      if (skipped.length > 0) {
+        const note = 'Skipped ' + skipped.length + ' line(s) not starting with "Talk:":\n' +
+          skipped.map(function(s) { return '  ' + s.replace(/--/g, '- -'); }).join('\n');
+        output = output + (output ? '\n' : '') + '<!-- ' + note + ' -->';
+        // Also surface the warning to the user directly
+        alert('Skipped ' + skipped.length + ' line(s) that did not start with "Talk:":\n\n' + skipped.join('\n'));
+      }
+
+      outputEl.value = output;
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(output).then(() => {
+        console.log('Transclusions copied to clipboard!');
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    });
+  </script>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr>
+<p align="center">
+  <sub>© 2026 Dan Geislinger. All rights reserved.</sub>
+</p>
+
+</body>
+</html>
